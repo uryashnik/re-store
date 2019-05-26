@@ -1,6 +1,6 @@
 import React from 'react';
+import './error-indicator.css';
 
-import './error-undicator.css';
 const ErrorIndicator = () => {
     return <div>Error!</div>
 }
