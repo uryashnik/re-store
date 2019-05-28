@@ -5,6 +5,7 @@ import './book-list.css';
 import withBookStoreService from '../hoc';
 import { booksLoaded } from '../../actions';
 import { bindActionCreators } from 'redux';
+import {compose} from '../../utils';
 class BookList extends Component {
     componentDidMount(){
         const {bookstoreService} = this.props;
@@ -14,7 +15,7 @@ class BookList extends Component {
     render() {
         const { books } = this.props;
         return (
-            <ul>
+            <ul className="book-list">
                 {
                     books.map((book) => {
                         return (
@@ -33,16 +34,10 @@ const mapStateToProps = ({ books }) => {
 const mapDispatchToProps = {
     booksLoaded
 };
-// 2)   const mapDispatchToProps =  (dispatch) => {
-//     return bindActionCreators({
-//         booksLoaded},
-//         dispatch);
-//     }
-//1)       return {
-    //     booksLoaded: (newBooks) => {
-    //         dispatch(booksLoaded(newBooks));
-    //     }
-    // }
 
+export default compose(
+    withBookStoreService(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(BookList);
 
-export default withBookStoreService()(connect(mapStateToProps, mapDispatchToProps)(BookList));
+// withBookStoreService()(connect(mapStateToProps, mapDispatchToProps)(BookList));
